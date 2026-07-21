@@ -1,39 +1,44 @@
-# CT Linked Content Gallery · Field Guide 06
+# CleverTap Field Guides — Deploy Pack
 
-A single-file interactive field guide for CleverTap Linked Content and Custom KVP:
-120 send-time personalization plays across 15 verticals, with channel-true mockups,
-a developer setup docs tab, and a 3D sphere cover built from the gallery's own renders.
+Two things in this pack:
+1. **index.html** — the fully upgraded Linked Content gallery (Field Guide 06)
+2. **suite-index.html** — a landing hub that links all 10 galleries
 
-**Live URL after deploy:** https://shijunneo-bot.github.io/ct-linked-content-gallery/
+## 1. Deploy the updated Linked Content gallery
+Repo: `ct-linked-content-gallery` → https://shijunneo-bot.github.io/ct-linked-content-gallery/
+- Open the repo → replace `index.html` on `main` with the one in this pack (upload → commit).
+- Pages redeploys automatically in ~1 minute.
 
-## What's inside (one file, no dependencies)
-- Sphere cover intro (16 real mockup tiles, hover to pause and inspect, tap or Enter to open)
-- 120 use-case cards, 8 per vertical, emoji-hinted titles, deliverability stamps
-- Vertical index cards with live counts, collapsible sticky filters, API-family filters (15+ each)
-- Channel-true modals: lockscreen push, full email with product cards, SMS and WhatsApp frames, web push, webhook ops card
-- Developer Setup Docs tab: Linked Content setup, Catalog STP, Campaign ID, Recommendations, the External Trigger stack, 12 Liquid hacks, TAM talking points per section
-- Living gradient wordmark, film grain, aurora background; full keyboard support, WCAG-checked contrast, reduced-motion safe, mobile bottom-sheet modals
+What changed in this version (world-class UAT pass):
+- **SEO:** meta description, keywords, canonical, Open Graph + Twitter cards, JSON-LD WebApplication schema.
+- **AEO (AI search):** a semantic content summary crawlers and AI engines can read (the cards are JS-rendered, so bots previously saw almost nothing).
+- **Performance:** Google Fonts moved from render-blocking `@import` to preconnect + non-blocking load (better LCP/Core Web Vitals).
+- **Light + dark mode:** a theme toggle (bottom-right), remembered per visitor, both themes WCAG AA on every text token. No flash on load.
+- **Family strip:** now links all 10 live galleries.
+- **Favicon:** official CleverTap mark (embedded, so it travels with the file).
 
-## Deploy (GitHub web UI, ~2 minutes)
-1. github.com → New repository → name: `ct-linked-content-gallery` → Public → Create
-2. "uploading an existing file" → drop `index.html` → Commit to `main`
-3. Settings → Pages → Source: Deploy from a branch → Branch: `main`, folder `/ (root)` → Save
-4. Wait ~1 minute; the site is live at the URL above.
+## 2. Deploy the suite landing hub (optional but recommended)
+Pick ONE approach:
 
-## Deploy (git CLI)
-```bash
-git init ct-linked-content-gallery && cd ct-linked-content-gallery
-cp /path/to/index.html .
-git add index.html && git commit -m "FG06: Linked Content gallery v1"
-git branch -M main
-git remote add origin git@github.com:shijunneo-bot/ct-linked-content-gallery.git
-git push -u origin main
-# then enable Pages: Settings → Pages → main / root
+**Option A — a dedicated repo (cleanest URL):**
+- New repo `ct-field-guides` → upload `suite-index.html`, rename it to `index.html` → enable Pages.
+- Lives at https://shijunneo-bot.github.io/ct-field-guides/
+
+**Option B — add to an existing repo:**
+- Drop `suite-index.html` into any gallery repo; it's reachable at `.../suite-index.html`.
+
+## 3. Favicon consistency across ALL galleries (one-time task)
+You asked that every gallery use the same CleverTap icon. The favicon is one line in each `index.html` `<head>`. In each of the other repos, ensure this line is present (replace any existing `<link rel="icon">`):
+
+```html
+<link rel="icon" type="image/png" href="https://docs.clevertap.com/favicon.ico">
+<meta name="theme-color" content="#0B0D1C">
 ```
 
-## Updating later
-Replace `index.html` on `main` (web UI: open file → edit/upload → commit). Pages redeploys automatically.
+(Using CleverTap's hosted favicon URL keeps every gallery identical and is the simplest one-line edit. The Linked Content gallery in this pack embeds the same icon as base64 so it works even offline — either approach shows the same mark.)
 
-## After deploy
-The other five galleries can add this to their family strips as
-`06 · Linked Content → https://shijunneo-bot.github.io/ct-linked-content-gallery/`.
+Repos to update: amp-email-gallery · rich-push-gallery · ct-sms-field-guide · whatsapp-addon-gallery · ct-template-gallery · ct-recommendations-gallery · ct-geofencing-gallery · ct-reminders-gallery · ct-promos-gallery
+
+## Notes
+- Both files are self-contained (no build step, no dependencies beyond Google Fonts).
+- The gallery is one ~510KB HTML file with all 120 examples, mockups, and setup recipes embedded.
